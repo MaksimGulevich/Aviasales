@@ -1,0 +1,70 @@
+.tiket {
+    box-sizing: border-box;
+    display: grid;
+    justify-content:space-between;
+    margin-bottom: 20px;
+    padding: 20px;
+    grid-template-areas: 
+                "price price image"
+                "ratto tilto trnto"
+                "ratfr tilfr trnfr";
+    width: 502px;
+    height: 184px;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px -10px;
+}
+
+.tiket__price {
+    grid-area: price;
+    margin: 0;
+    font-size: 24px;
+    font-weight: 500;
+    color: #2196F3;
+}
+
+.tiket__image {
+    grid-area: image;
+}
+
+.tiket__route_and_time_to {
+    grid-area: ratto;
+}
+
+.tiket__route_and_time_from {
+    grid-area: ratfr;
+}
+
+.tiket__time_in_light_to {
+    grid-area: tilto;
+}
+
+.tiket__time_in_light_from {
+    grid-area: tilfr;
+}
+
+.tiket__transfer_to {
+    grid-area: trnto;
+}
+
+.tiket__transfer_from {
+    grid-area: trnfr;
+}
+
+.tiket__route, 
+.tiket__in_light,
+.tiket__transfer {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 500;
+    color: #A0B0B9;
+}
+
+.tiket__time,
+.tiket__time_in_light,
+.tiket__towns {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #4A4A4A;
+}

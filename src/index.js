@@ -1,17 +1,38 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+// import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState } from 'react'
+import { createRoot } from 'react-dom/client'
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+import classes from './index.module.css'
+import Main from './Main/Main'
+import Button from './Button/Button'
+import Tiket from './Tiket/Tiket'
+import Filter from './Filter/Filter'
+import ButtonElse from './ButtunElse/ButtonElse'
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+function App() {
+  const [buttonSelected, setButtonSelected] = useState('none')
+  return (
+    <div className={classes.flex}>
+      <img className={classes.logo} src="/img/Logo.svg" alt="Логотип Авиасейлс" />
+      <div className={classes.page}>
+        <Filter />
+        <Main>
+          <Button
+            onCheapest={() => setButtonSelected('cheapest')}
+            onFastest={() => setButtonSelected('fastest')}
+            onOptimal={() => setButtonSelected('optimal')}
+            filterButtons={buttonSelected}
+          />
+          <Tiket />
+          <Tiket />
+          <Tiket />
+          <ButtonElse />
+        </Main>
+      </div>
+    </div>
+  )
+}
+const rootElement = document.getElementById('root')
+const root = createRoot(rootElement)
+
+root.render(<App />)
