@@ -1,6 +1,8 @@
 // import React, { useState, useEffect, useMemo } from 'react'
 import React, { useState } from 'react'
 import { createRoot } from 'react-dom/client'
+// import { configureStore } from '@reduxjs/toolkit'
+// import { Provider } from 'react-redux'
 
 import classes from './index.module.css'
 import Main from './Main/Main'
