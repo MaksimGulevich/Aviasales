@@ -1,6 +1,11 @@
-const rootReducer = combineReducers({
-  counter: counterReducer,
-})
+import { configureStore } from '@reduxjs/toolkit'
 
-// Создаем store
-const store = createStore(rootReducer)
+import buttonSelectedReducer from './Slice'
+import checkboxCheckedReducer from './checkboxSlice'
+
+export default configureStore({
+  reducer: {
+    buttonSelected: buttonSelectedReducer,
+    checkboxChecked: checkboxCheckedReducer,
+  },
+})
