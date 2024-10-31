@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { onCheapest, onFastest, onOptimal } from '../store/Slice'
+import { onCheapest, onFastest, onOptimal, fetchData, fetchDataTicket } from '../store/Slice'
 
 import classes from './Button.module.css'
 
@@ -36,7 +36,24 @@ export default function Button() {
     }
     return (
       <li key={name} className={`${classes.menu__item}  ${clazzName}`}>
-        <button className={`${classes.menu__button} ${clazzName}`} type="button" onClick={selectedButton}>
+        <button
+          className={`${classes.menu__button} ${clazzName}`}
+          type="button"
+          onClick={() => {
+            selectedButton()
+            dispatch(fetchData()).then((resultAction) => {
+              // Проверяем, был ли первый запрос успешным
+              if (resultAction.meta.requestStatus === 'fulfilled') {
+                // Получаем searchId из первого запроса
+                const { searchId } = resultAction.payload
+                // Выполняем второй запрос с использованием searchId
+                dispatch(fetchDataTicket(searchId))
+              } else {
+                console.error('Первый запрос завершился с ошибкой')
+              }
+            })
+          }}
+        >
           <span className={classes.menu__span}>{label}</span>
         </button>
       </li>

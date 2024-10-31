@@ -1,9 +1,38 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+
+export const fetchData = createAsyncThunk('data/fetchSearchId', async () => {
+  const responce = await fetch('https://aviasales-test-api.kata.academy/search')
+  const data = await responce.json()
+  return data
+})
+
+export const fetchDataTicket = createAsyncThunk('data/fetchTickets', async (searchId) => {
+  try {
+    const responce = await fetch(`https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`)
+    if (!responce.ok) {
+      throw new Error('Ошибка сетевого запроса')
+    }
+    const data = await responce.json()
+    return data
+  } catch (error) {
+    console.log('ошибка')
+    const responce = await fetch(`https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`)
+    if (!responce.ok) {
+      throw new Error('Ошибка сетевого запроса')
+    }
+    const data = await responce.json()
+    return data
+  }
+})
 
 const buttonSelectedSlice = createSlice({
   name: 'buttonSelected',
   initialState: {
     buttonSelected: 'none',
+    id: null,
+    items: [],
+    status: 'idle',
+    error: null,
   },
   reducers: {
     onCheapest: (state, action) => ({
@@ -18,6 +47,38 @@ const buttonSelectedSlice = createSlice({
       ...state,
       buttonSelected: action.payload,
     }),
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchData.pending, (state) => ({
+        ...state,
+        status: 'loading', // Когда запрос отправлен, статус "loading"
+      }))
+      .addCase(fetchData.fulfilled, (state, action) => ({
+        ...state,
+        status: 'succeeded', // Когда запрос выполнен успешно, статус "succeeded"
+        id: action.payload.searchId, // Сохраняем данные в состоянии
+      }))
+      .addCase(fetchData.rejected, (state, action) => ({
+        ...state,
+        status: 'failed', // Если запрос завершён с ошибкой, статус "failed"
+        error: action.error.message, // Сохраняем ошибку в состоянии
+      }))
+      // Запрос по билетам
+      .addCase(fetchDataTicket.pending, (state) => ({
+        ...state,
+        status: 'loading', // Когда запрос отправлен, статус "loading"
+      }))
+      .addCase(fetchDataTicket.fulfilled, (state, action) => ({
+        ...state,
+        status: 'succeeded', // Когда запрос выполнен успешно, статус "succeeded"
+        items: action.payload, // Сохраняем данные в состоянии
+      }))
+      .addCase(fetchDataTicket.rejected, (state, action) => ({
+        ...state,
+        status: 'failed', // Если запрос завершён с ошибкой, статус "failed"
+        error: action.error.message, // Сохраняем ошибку в состоянии
+      }))
   },
 })
 

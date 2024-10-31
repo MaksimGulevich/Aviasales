@@ -18,14 +18,7 @@ export default function App() {
       <div className={classes.page}>
         <Filter />
         <Main>
-          <Button
-          // onCheapest={() => setButtonSelected('cheapest')}
-          // onFastest={() => setButtonSelected('fastest')}
-          // onOptimal={() => setButtonSelected('optimal')}
-          // filterButtons={buttonSelected}
-          />
-          <Tiket />
-          <Tiket />
+          <Button />
           <Tiket />
           <ButtonElse />
         </Main>
