@@ -6,7 +6,7 @@
 }
 .progress-bar-progressed {
     width: 100%;
-    transition: width 60s ease-in-out;
+    transition: width 15s ease-in-out;
 }
 
 .progress-bar-succeeded{
