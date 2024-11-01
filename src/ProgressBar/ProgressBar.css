@@ -1,0 +1,21 @@
+.none {
+    opacity: 0;
+}
+.progress-bar{
+    width: 0px;
+}
+.progress-bar-progressed {
+    width: 100%;
+    transition: width 60s ease-in-out;
+}
+
+.progress-bar-succeeded{
+    width: 100%;
+    transition: none;
+}
+
+.progress-none {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+

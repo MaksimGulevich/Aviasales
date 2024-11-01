@@ -34,6 +34,7 @@ const buttonSelectedSlice = createSlice({
     id: null,
     items: [],
     status: 'none',
+    statusTickets: 'none',
     error: null,
   },
   reducers: {
@@ -69,15 +70,15 @@ const buttonSelectedSlice = createSlice({
       // Запрос по билетам
       .addCase(fetchDataTicket.pending, (state) => ({
         ...state,
-        status: 'loading', // Когда запрос отправлен, статус "loading"
+        statusTickets: 'loading', // Когда запрос отправлен, статус "loading"
       }))
       .addCase(fetchDataTicket.fulfilled, (state) => ({
         ...state,
-        status: 'succeeded', // Когда запрос выполнен успешно, статус "succeeded"
+        statusTickets: 'succeeded', // Когда запрос выполнен успешно, статус "succeeded"
       }))
       .addCase(fetchDataTicket.rejected, (state, action) => ({
         ...state,
-        status: 'failed', // Если запрос завершён с ошибкой, статус "failed"
+        statusTickets: 'failed', // Если запрос завершён с ошибкой, статус "failed"
         error: action.error.message, // Сохраняем ошибку в состоянии
       }))
       .addCase(addTickets, (state, action) => ({

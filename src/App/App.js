@@ -1,17 +1,13 @@
-// import React, { useState } from 'react'
-// import { useSelector } from 'react-redux'
-
 import ButtonElse from '../ButtunElse/ButtonElse'
 import Main from '../Main/Main'
 import Button from '../Button/Button'
 import Tiket from '../Tiket/Tiket'
 import Filter from '../Filter/Filter'
+import ProgressBar from '../ProgressBar/ProgressBar'
 
 import classes from './App.module.css'
 
 export default function App() {
-  //   const [buttonSelected, setButtonSelected] = useState('none')
-
   return (
     <div className={classes.flex}>
       <img className={classes.logo} src="/img/Logo.svg" alt="Логотип Авиасейлс" />
@@ -19,6 +15,7 @@ export default function App() {
         <Filter />
         <Main>
           <Button />
+          <ProgressBar />
           <Tiket />
           <ButtonElse />
         </Main>

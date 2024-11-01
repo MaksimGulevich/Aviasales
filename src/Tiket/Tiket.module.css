@@ -15,6 +15,10 @@
     box-shadow: 0 5px 10px -10px;
 }
 
+.tiket:first-child {
+margin-top: 20px;
+}
+
 .tiket__price {
     grid-area: price;
     margin: 0;

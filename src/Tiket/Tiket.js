@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
-import './Tiket.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { minutesToHours, add } from 'date-fns'
 
 import { fetchData, fetchDataTicket } from '../store/Slice'
+
+import classes from './Tiket.module.css'
 
 export default function Tiket() {
   const dispatch = useDispatch()
@@ -112,14 +113,20 @@ export default function Tiket() {
     count += 1
 
     return (
-      <section className="tiket" key={count}>
-        <img className="tiket__image" src={`https://pics.avs.io/99/36/${item.carrier}.png`} alt="Лого S7" />
-        <p className="tiket__price">{item.price} Р</p>
-        <div className="tiket__route_and_time_to">
-          <p className="tiket__route">
+      <section className={classes.tiket} key={count}>
+        <img className={classes.tiket__image} src={`https://pics.avs.io/99/36/${item.carrier}.png`} alt="Лого S7" />
+        <p className={classes.tiket__price}>
+          {item.price < 10000 && item.price.toString().substr(0, 2)}
+          {item.price > 10000 &&
+            item.price < 100000 &&
+            `${item.price.toString().substr(0, 2)} ${item.price.toString().substr(2)}`}
+          {item.price > 100000 && `${item.price.toString().substr(0, 3)} ${item.price.toString().substr(3)}`} Р
+        </p>
+        <div className={classes.tiket__route_and_time_to}>
+          <p className={classes.tiket__route}>
             {item.segments[0].origin} - {item.segments[0].destination}
           </p>
-          <p className="tiket__time">
+          <p className={classes.tiket__time}>
             {new Date(item.segments[0].date).getHours().toString() < 10
               ? `0${new Date(item.segments[0].date).getHours().toString()}`
               : new Date(item.segments[0].date).getHours().toString()}
@@ -137,11 +144,11 @@ export default function Tiket() {
               : minutes(item.segments[0].date, item.segments[0].duration)}
           </p>
         </div>
-        <div className="tiket__route_and_time_from">
-          <p className="tiket__route">
+        <div className={classes.tiket__route_and_time_from}>
+          <p className={classes.tiket__route}>
             {item.segments[1].origin} - {item.segments[1].destination}
           </p>
-          <p className="tiket__time">
+          <p className={classes.tiket__time}>
             {new Date(item.segments[1].date).getHours().toString() < 10
               ? `0${new Date(item.segments[1].date).getHours().toString()}`
               : new Date(item.segments[1].date).getHours().toString()}
@@ -159,35 +166,35 @@ export default function Tiket() {
               : minutes(item.segments[1].date, item.segments[1].duration)}
           </p>
         </div>
-        <div className="tiket__time_in_light_to">
-          <p className="tiket__in_light">В ПУТИ</p>
-          <p className="tiket__time_in_light">
+        <div className={classes.tiket__time_in_light_to}>
+          <p className={classes.tiket__in_light}>В ПУТИ</p>
+          <p className={classes.tiket__time_in_light}>
             {minutesToHours(item.segments[0].duration)}ч{' '}
             {item.segments[0].duration - minutesToHours(item.segments[0].duration) * 60}м
           </p>
         </div>
-        <div className="tiket__time_in_light_from">
-          <p className="tiket__in_light">В ПУТИ</p>
-          <p className="tiket__time_in_light">
+        <div className={classes.tiket__time_in_light_from}>
+          <p className={classes.tiket__in_light}>В ПУТИ</p>
+          <p className={classes.tiket__time_in_light}>
             {minutesToHours(item.segments[1].duration)}ч{' '}
             {item.segments[1].duration - minutesToHours(item.segments[1].duration) * 60}м
           </p>
         </div>
-        <div className="tiket__transfer_to">
-          <p className="tiket__transfer">
+        <div className={classes.tiket__transfer_to}>
+          <p className={classes.tiket__transfer}>
             {item.segments[0].stops.length === 0 && 'БЕЗ ПЕРЕСАДОК'}
             {item.segments[0].stops.length === 1 && `${item.segments[0].stops.length} ПРЕСАДКА`}
             {item.segments[0].stops.length >= 2 && `${item.segments[0].stops.length} ПРЕСАДКИ`}
           </p>
-          <p className="tiket__towns">{item.segments[0].stops.join(', ')}</p>
+          <p className={classes.tiket__towns}>{item.segments[0].stops.join(', ')}</p>
         </div>
-        <div className="tiket__transfer_from">
-          <p className="tiket__transfer">
+        <div className={classes.tiket__transfer_from}>
+          <p className={classes.tiket__transfer}>
             {item.segments[1].stops.length === 0 && 'БЕЗ ПЕРЕСАДОК'}
             {item.segments[1].stops.length === 1 && `${item.segments[1].stops.length} ПРЕСАДКА`}
             {item.segments[1].stops.length >= 2 && `${item.segments[1].stops.length} ПРЕСАДКИ`}
           </p>
-          <p className="tiket__towns">{item.segments[1].stops.join(', ')}</p>
+          <p className={classes.tiket__towns}>{item.segments[1].stops.join(', ')}</p>
         </div>
       </section>
     )
